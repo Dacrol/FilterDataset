@@ -5,9 +5,9 @@ import numpy as np
 
 
 class Filterer:
-    def __init__(self, attributes=(0), attributes_file='attributes.txt'):
+    def __init__(self, attributes=(0), attributes_file=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'attributes.txt'))):
         self.attributes = attributes
-        self.filenames = np.array()
+        self.filenames = np.array([], dtype='str')
         self.attributes_file = attributes_file
         self.matches = 0
 
