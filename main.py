@@ -11,9 +11,9 @@ class Filterer:
         self.attributes_file = attributes_file
         self.matches = 0
 
-    def get_filenames(self):
+    def get_filenames(self, attributes=(0)):
         filenames = np.loadtxt(self.attributes_file,
-                               dtype=str, skiprows=1, usecols=self.attributes)
+                               dtype=str, skiprows=1, usecols=attributes)
         return filenames
 
     def get_batch(self, no=64):
