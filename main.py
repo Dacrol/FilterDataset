@@ -12,6 +12,14 @@ class Filterer:
         self.matches = 0
 
     def get_filenames(self, attributes=(0)):
+        with open(self.attributes_file, mode='rt') as file:
+            next(file)
+            possible_attributes = file.readline().strip()
+        possible_attributes = possible_attributes.split(' ')
+        # print(str(possible_attributes))
+
+        if (attributes == (0) and self.attributes != (0)):
+            attributes = self.attributes
         filenames = np.loadtxt(self.attributes_file,
                                dtype=str, skiprows=1, usecols=attributes)
         return filenames
