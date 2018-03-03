@@ -20,8 +20,9 @@ class Filterer:
 
         if (attributes == () and self.attributes != ()):
             attributes = self.attributes
+        attributes = (0,) + tuple([(attribute + 1) for attribute in attributes])
         filenames = np.loadtxt(self.attributes_file,
-                               dtype=str, skiprows=1, usecols=attributes)
+                               dtype=str, skiprows=2, usecols=attributes)
         return filenames
 
     def get_batch(self, no=64):
