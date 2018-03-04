@@ -28,7 +28,7 @@ class Filterer:
 
         filenames = np.genfromtxt(self.attributes_file,
                                   dtype=str, skip_header=2, usecols=attributes)
-        return np.array(list(map(lambda row: [row[0]] + ([-1] if '-1' in row[1:] else [1]), filenames)))
+        return np.array(list(map(lambda row: (row[0], (-1 if '-1' in row[1:] else 1)), filenames)), dtype=[('filename', 'U' + str(len(max(filenames[:, 0], key=len)))), ('label', '<i1')])
 
     def get_batch(self, no=64):
         return 0
