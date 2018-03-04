@@ -20,8 +20,12 @@ class Filterer:
 
         if (attributes == () and self.attributes != ()):
             attributes = self.attributes
-        attributes = (0,) + tuple([(attribute + 1)
-                                   for attribute in attributes])
+        attributes = tuple(map(lambda attribute: possible_attributes.index(
+            attribute) if type(attribute) is str else attribute, attributes))
+        attributes = (0,) + tuple(sorted([(attribute + 1)
+                                          for attribute in attributes]))
+        print(attributes)
+
         filenames = np.genfromtxt(self.attributes_file,
                                   dtype=str, skip_header=2, usecols=attributes)
         return np.array(list(map(lambda row: [row[0]] + ([-1] if '-1' in row[1:] else [1]), filenames)))
