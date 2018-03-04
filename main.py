@@ -24,7 +24,7 @@ class Filterer:
                                    for attribute in attributes])
         filenames = np.genfromtxt(self.attributes_file,
                                   dtype=str, skip_header=2, usecols=attributes)
-        return filenames
+        return np.array(list(map(lambda row: [row[0]] + ([-1] if '-1' in row[1:] else [1]), filenames)))
 
     def get_batch(self, no=64):
         return 0
