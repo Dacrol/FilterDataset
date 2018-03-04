@@ -5,13 +5,13 @@ import numpy as np
 
 
 class Filterer:
-    def __init__(self, attributes=(), attributes_file=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'attributes.txt'))):
+    def __init__(self, attributes=(), notattributes=(), attributes_file=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'attributes.txt'))):
         self.attributes = attributes
         self.filenames = np.array([], dtype='str')
         self.attributes_file = attributes_file
         self.matches = 0
 
-    def get_filenames(self, attributes=()):
+    def get_filenames(self, attributes=(), notattributes=()):
         with open(self.attributes_file, mode='rt') as file:
             next(file)
             possible_attributes = file.readline().strip()
