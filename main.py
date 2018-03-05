@@ -18,13 +18,17 @@ class Filterer:
         possible_attributes = possible_attributes.split(' ')
         # print(str(possible_attributes))
 
-        if (attributes == () and self.attributes != ()):
+        if (len(attributes) == 0 and len(self.attributes) != 0):
             attributes = self.attributes
         attributes = tuple(map(lambda attribute: possible_attributes.index(
             attribute) if type(attribute) is str else attribute, attributes))
         attributes = (0,) + tuple(sorted([(attribute + 1)
                                           for attribute in attributes]))
         print(attributes)
+        if (len(notattributes) == 0 and len(self.notattributes) != 0):
+            notattributes = self.notattributes
+        attributes, notattributes = tuple([tuple(attributeslist) if type(attributeslist) is not str else (
+            attributeslist,) for attributeslist in (attributes, notattributes)])
 
         filenames = np.genfromtxt(self.attributes_file,
                                   dtype=str, skip_header=2, usecols=attributes)
