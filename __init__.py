@@ -1,1 +1,1 @@
-from filterdataset.filterer import Filterer
+from .filterer import Filterer
