@@ -2,12 +2,13 @@
 
 import os
 import numpy as np
+from random import sample
 
 
 class Filterer:
     def __init__(self, attributes=(), notattributes=(), attributes_file=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'attributes.txt'))):
         self.attributes = attributes
-        self.filenames = np.array([], dtype='str')
+        self.processed = None
         self.attributes_file = attributes_file
         self.matches = 0
 
@@ -46,8 +47,9 @@ class Filterer:
         # [(row[0], 1 if np.array_equal(row[1:], match) else -1) for row in filenames] # Faster
         # t2 = timer() - t2
         # print(t1, t2)
-
-        return np.array([(row[0], 1 if np.array_equal(row[1:], match) else -1) for row in filenames], dtype=[('filename', 'U' + str(len(max(filenames[:, 0], key=len)))), ('label', '<i1')])
+        processed = np.array([(row[0], 1 if np.array_equal(row[1:], match) else -1) for row in filenames], dtype=[('filename', 'U' + str(len(max(filenames[:, 0], key=len)))), ('label', '<i1')])
+        self.processed = processed
+        return processed
 
     def get_batch(self, no=64):
-        return 0
+        return sample(self.processed, no)
